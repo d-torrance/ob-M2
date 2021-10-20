@@ -1,4 +1,5 @@
 (require 'ob)
+(require 'M2)
 
 (defun org-babel-execute:M2 (body params)
     "Execute a block of Macaulay2 code with org-babel.
