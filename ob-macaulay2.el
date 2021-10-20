@@ -6,3 +6,5 @@ This function is called by `org-babel-execute-src-block'"
     (let ((temp-file (org-babel-temp-file "M2-" ".m2")))
       (with-temp-file temp-file (insert body))
       (org-babel-eval (concat "M2 --script " temp-file) "")))
+
+(provide 'ob-macaulay2)
