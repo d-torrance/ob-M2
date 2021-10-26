@@ -26,7 +26,7 @@ This function is called by `org-babel-execute-src-block'"
 		     (session org-babel-macaulay2-eoe-output)
 		   (insert (concat body "\n"
 				   org-babel-macaulay2-eoe-indicator))
-		   (M2-send-to-program session))))
+		   (comint-send-input nil t))))
       (`value "TODO"))))
 
 (provide 'ob-macaulay2)
