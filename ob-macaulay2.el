@@ -4,7 +4,8 @@
 
 (defconst org-babel-macaulay2-eoe-output "org_babel_macaulay2_eoe")
 (defconst org-babel-macaulay2-eoe-indicator
-  (prin1-to-string org-babel-macaulay2-eoe-output))
+  (concat "print "
+	  (prin1-to-string org-babel-macaulay2-eoe-output)))
 (defconst org-babel-macaulay2-command
   (concat M2-exe " --no-prompts --silent -e 'clearEcho stdio'"))
 
@@ -30,11 +31,18 @@ This function is called by `org-babel-execute-src-block'"
 		   (with-current-buffer session
 		     (setq-local comint-prompt-regexp "^"))
 		   (prog1
-		       (apply #'concat (org-babel-comint-with-output
-			   (session org-babel-macaulay2-eoe-output)
-			 (insert (concat body "\n"
-					 org-babel-macaulay2-eoe-indicator))
-			 (comint-send-input nil t)))
+		       (apply
+			#'concat
+			(seq-remove ;; remove end of evaluation output
+			 (lambda (line)
+			   (string-match-p org-babel-macaulay2-eoe-output
+					   line))
+			 (org-babel-comint-with-output
+			     (session org-babel-macaulay2-eoe-output)
+			   (insert
+			    (concat body "\n"
+				    org-babel-macaulay2-eoe-indicator))
+			   (comint-send-input nil t))))
 		     (with-current-buffer session
 		       (setq-local comint-prompt-regexp
 				   comint-prompt-regexp-old))))))
