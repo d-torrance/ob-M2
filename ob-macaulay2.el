@@ -5,12 +5,14 @@
 (defconst org-babel-macaulay2-eoe-output "org_babel_macaulay2_eoe")
 (defconst org-babel-macaulay2-eoe-indicator
   (prin1-to-string org-babel-macaulay2-eoe-output))
+(defconst org-babel-macaulay2-command
+  (concat M2-exe " --no-prompts --silent -e 'clearEcho stdio'"))
 
 (defun org-babel-macaulay2-initiate-session (&optional session)
   "If there is not a current inferior-process-buffer in SESSION then create.
 Return the initialized session."
   (if (string= session "none") "none"
-    (buffer-name (save-excursion (M2 M2-exe session)))))
+    (buffer-name (save-excursion (M2 org-babel-macaulay2-command session)))))
 
 (defun org-babel-execute:M2 (body params)
   "Execute a block of Macaulay2 code with org-babel.
@@ -21,7 +23,8 @@ This function is called by `org-babel-execute-src-block'"
 	 (result-type (cdr (assq :result-type processed-params))))
     (pcase result-type
       (`output (if (string= session "none")
-		   (string-trim-left (org-babel-eval M2-exe body))
+		   (string-trim-left
+		    (org-babel-eval org-babel-macaulay2-command body))
 		 (org-babel-comint-with-output
 		     (session org-babel-macaulay2-eoe-output)
 		   (insert (concat body "\n"
