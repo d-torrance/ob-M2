@@ -30,11 +30,11 @@ This function is called by `org-babel-execute-src-block'"
 		   (with-current-buffer session
 		     (setq-local comint-prompt-regexp "^"))
 		   (prog1
-		       (org-babel-comint-with-output
+		       (apply #'concat (org-babel-comint-with-output
 			   (session org-babel-macaulay2-eoe-output)
 			 (insert (concat body "\n"
 					 org-babel-macaulay2-eoe-indicator))
-			 (comint-send-input nil t))
+			 (comint-send-input nil t)))
 		     (with-current-buffer session
 		       (setq-local comint-prompt-regexp
 				   comint-prompt-regexp-old))))))
