@@ -25,11 +25,19 @@ This function is called by `org-babel-execute-src-block'"
       (`output (if (string= session "none")
 		   (string-trim-left
 		    (org-babel-eval org-babel-macaulay2-command body))
-		 (org-babel-comint-with-output
-		     (session org-babel-macaulay2-eoe-output)
-		   (insert (concat body "\n"
-				   org-babel-macaulay2-eoe-indicator))
-		   (comint-send-input nil t))))
+		 (let ((comint-prompt-regexp-old
+			(with-current-buffer session comint-prompt-regexp)))
+		   (with-current-buffer session
+		     (setq-local comint-prompt-regexp "^"))
+		   (prog1
+		       (org-babel-comint-with-output
+			   (session org-babel-macaulay2-eoe-output)
+			 (insert (concat body "\n"
+					 org-babel-macaulay2-eoe-indicator))
+			 (comint-send-input nil t))
+		     (with-current-buffer session
+		       (setq-local comint-prompt-regexp
+				   comint-prompt-regexp-old))))))
       (`value "TODO"))))
 
 (provide 'ob-macaulay2)
