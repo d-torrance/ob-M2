@@ -13,7 +13,8 @@
   "If there is not a current inferior-process-buffer in SESSION then create.
 Return the initialized session."
   (if (string= session "none") "none"
-    (buffer-name (save-excursion (M2 org-babel-macaulay2-command session)))))
+    (buffer-name
+     (save-window-excursion (M2 org-babel-macaulay2-command session)))))
 
 (defun org-babel-execute:M2 (body params)
   "Execute a block of Macaulay2 code with org-babel.
