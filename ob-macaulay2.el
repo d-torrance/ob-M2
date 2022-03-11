@@ -26,21 +26,24 @@ last statement in BODY, as elisp."
     (with-current-buffer session
       (setq-local comint-prompt-regexp "^"))
     (prog1
-	(apply
-	 #'concat
-	 (seq-remove ;; remove end of evaluation output
-	  (lambda (line)
-	    (string-match-p org-babel-macaulay2-eoe-output
-			    line))
-	  (org-babel-comint-with-output
-	      (session org-babel-macaulay2-eoe-output)
-	    (insert
-	     (concat
-	      (pcase result-type
-		(`output body)
-		(`value "print \"TODO\""))
-	      "\n" org-babel-macaulay2-eoe-indicator))
-	    (comint-send-input nil t))))
+	(string-trim-left
+	 (apply
+	  #'concat
+	  (seq-remove ;; remove end of evaluation output
+	   (lambda (line)
+	     (or
+	      (string-match-p org-babel-macaulay2-eoe-output
+			      line)
+	      (string-match-p "^+ M2" line)))
+	   (org-babel-comint-with-output
+	       (session org-babel-macaulay2-eoe-output)
+	     (insert
+	      (concat
+	       (pcase result-type
+		 (`output body)
+		 (`value "print \"TODO\""))
+	       "\n" org-babel-macaulay2-eoe-indicator))
+	     (comint-send-input nil t)))))
       (with-current-buffer session
 	(setq-local comint-prompt-regexp
 		    comint-prompt-regexp-old)))))
