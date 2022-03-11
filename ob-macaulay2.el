@@ -16,6 +16,35 @@ Return the initialized session."
     (buffer-name
      (save-window-excursion (M2 org-babel-macaulay2-command session)))))
 
+(defun org-babel-macaulay2-evaluate-session (session body result-type)
+  "Pass BODY to the Macaulay2 process in SESSION.
+If RESULT-TYPE equals `output' then return standard output as a
+string.  If RESULT-TYPE equals `value' then return the value of the
+last statement in BODY, as elisp."
+  (let ((comint-prompt-regexp-old
+	 (with-current-buffer session comint-prompt-regexp)))
+    (with-current-buffer session
+      (setq-local comint-prompt-regexp "^"))
+    (prog1
+	(apply
+	 #'concat
+	 (seq-remove ;; remove end of evaluation output
+	  (lambda (line)
+	    (string-match-p org-babel-macaulay2-eoe-output
+			    line))
+	  (org-babel-comint-with-output
+	      (session org-babel-macaulay2-eoe-output)
+	    (insert
+	     (concat
+	      (pcase result-type
+		(`output body)
+		(`value "print \"TODO\""))
+	      "\n" org-babel-macaulay2-eoe-indicator))
+	    (comint-send-input nil t))))
+      (with-current-buffer session
+	(setq-local comint-prompt-regexp
+		    comint-prompt-regexp-old)))))
+
 (defun org-babel-execute:M2 (body params)
   "Execute a block of Macaulay2 code with org-babel.
 This function is called by `org-babel-execute-src-block'"
@@ -27,26 +56,8 @@ This function is called by `org-babel-execute-src-block'"
       (`output (if (string= session "none")
 		   (string-trim-left
 		    (org-babel-eval org-babel-macaulay2-command body))
-		 (let ((comint-prompt-regexp-old
-			(with-current-buffer session comint-prompt-regexp)))
-		   (with-current-buffer session
-		     (setq-local comint-prompt-regexp "^"))
-		   (prog1
-		       (apply
-			#'concat
-			(seq-remove ;; remove end of evaluation output
-			 (lambda (line)
-			   (string-match-p org-babel-macaulay2-eoe-output
-					   line))
-			 (org-babel-comint-with-output
-			     (session org-babel-macaulay2-eoe-output)
-			   (insert
-			    (concat body "\n"
-				    org-babel-macaulay2-eoe-indicator))
-			   (comint-send-input nil t))))
-		     (with-current-buffer session
-		       (setq-local comint-prompt-regexp
-				   comint-prompt-regexp-old))))))
+		 (org-babel-macaulay2-evaluate-session
+		  session body result-type)))
       (`value "TODO"))))
 
 (provide 'ob-macaulay2)
