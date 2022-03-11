@@ -45,6 +45,17 @@ last statement in BODY, as elisp."
 	(setq-local comint-prompt-regexp
 		    comint-prompt-regexp-old)))))
 
+(defun org-babel-macaulay2-evaluate-external-process (body result-type)
+  "Evaluate BODY in external Macaulay2 process.
+If RESULT-TYPE equals `output' then return standard output as a
+string.  If RESULT-TYPE equals `value' then return the value of the
+last statement in BODY, as elisp."
+  (string-trim-left
+   (org-babel-eval org-babel-macaulay2-command
+		   (pcase result-type
+		     (`output body)
+		     (`value "print \"TODO\"")))))
+
 (defun org-babel-execute:M2 (body params)
   "Execute a block of Macaulay2 code with org-babel.
 This function is called by `org-babel-execute-src-block'"
@@ -52,12 +63,10 @@ This function is called by `org-babel-execute-src-block'"
 	 (session (org-babel-macaulay2-initiate-session
                    (cdr (assq :session processed-params))))
 	 (result-type (cdr (assq :result-type processed-params))))
-    (pcase result-type
-      (`output (if (string= session "none")
-		   (string-trim-left
-		    (org-babel-eval org-babel-macaulay2-command body))
-		 (org-babel-macaulay2-evaluate-session
-		  session body result-type)))
-      (`value "TODO"))))
+    (if (string= session "none")
+	(org-babel-macaulay2-evaluate-external-process
+	 body result-type)
+      (org-babel-macaulay2-evaluate-session
+       session body result-type))))
 
 (provide 'ob-macaulay2)
