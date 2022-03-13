@@ -2,6 +2,8 @@
 (require 'M2)
 (require 'subr-x)
 
+(add-to-list 'org-babel-tangle-lang-exts '("macaulay2" . "m2"))
+
 (defconst org-babel-macaulay2-eoe-output "org_babel_macaulay2_eoe")
 (defconst org-babel-macaulay2-eoe-indicator
   (concat "print "
