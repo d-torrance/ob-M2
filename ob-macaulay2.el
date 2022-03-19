@@ -51,7 +51,7 @@ last statement in BODY, as elisp."
 	 (funcall process-output
 		  (apply
 		   #'concat
-		   (seq-remove ;; remove end of evaluation output
+		   (seq-remove
 		    (lambda (line)
 		      (or
 		       (string-match-p org-babel-macaulay2-eoe-output
