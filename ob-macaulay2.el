@@ -19,34 +19,51 @@ Return the initialized session."
     (buffer-name
      (save-window-excursion (M2 org-babel-macaulay2-command session)))))
 
+(defconst org-babel-macaulay2-value-output "org_babel_macaulay2_value")
+
+(defun org-babel-macaulay2-prepare-value (body)
+  (concat body "\n"
+	  "print " (prin1-to-string org-babel-macaulay2-value-output) "\n"
+	  "print oo"))
+
+(defun org-babel-macaulay2-get-value (output)
+  (car (last (split-string output org-babel-macaulay2-value-output))))
+
 (defun org-babel-macaulay2-evaluate-session (session body result-type)
   "Pass BODY to the Macaulay2 process in SESSION.
 If RESULT-TYPE equals `output' then return standard output as a
 string.  If RESULT-TYPE equals `value' then return the value of the
 last statement in BODY, as elisp."
   (let ((comint-prompt-regexp-old
-	 (with-current-buffer session comint-prompt-regexp)))
+	 (with-current-buffer session comint-prompt-regexp))
+	(prepare-body
+	 (pcase result-type
+	   (`output 'identity)
+	   (`value 'org-babel-macaulay2-prepare-value)))
+	(process-output
+	 (pcase result-type
+	   (`output 'identity)
+	   (`value 'org-babel-macaulay2-get-value))))
     (with-current-buffer session
       (setq-local comint-prompt-regexp "^"))
     (prog1
 	(string-trim-left
-	 (apply
-	  #'concat
-	  (seq-remove ;; remove end of evaluation output
-	   (lambda (line)
-	     (or
-	      (string-match-p org-babel-macaulay2-eoe-output
-			      line)
-	      (string-match-p "^+ M2" line)))
-	   (org-babel-comint-with-output
-	       (session org-babel-macaulay2-eoe-output)
-	     (insert
-	      (concat
-	       (pcase result-type
-		 (`output body)
-		 (`value "print \"TODO\""))
-	       "\n" org-babel-macaulay2-eoe-indicator))
-	     (comint-send-input nil t)))))
+	 (funcall process-output
+		  (apply
+		   #'concat
+		   (seq-remove ;; remove end of evaluation output
+		    (lambda (line)
+		      (or
+		       (string-match-p org-babel-macaulay2-eoe-output
+				       line)
+		       (string-match-p "^+ M2" line)))
+		    (org-babel-comint-with-output
+			(session org-babel-macaulay2-eoe-output)
+		      (insert
+		       (concat (funcall prepare-body body) "\n"
+			       org-babel-macaulay2-eoe-indicator))
+		      (comint-send-input nil t)))))
+	 "[\n\r]+")
       (with-current-buffer session
 	(setq-local comint-prompt-regexp
 		    comint-prompt-regexp-old)))))
@@ -56,11 +73,19 @@ last statement in BODY, as elisp."
 If RESULT-TYPE equals `output' then return standard output as a
 string.  If RESULT-TYPE equals `value' then return the value of the
 last statement in BODY, as elisp."
-  (string-trim-left
-   (org-babel-eval org-babel-macaulay2-command
-		   (pcase result-type
-		     (`output body)
-		     (`value "print \"TODO\"")))))
+  (let ((prepare-body
+	 (pcase result-type
+	   (`output 'identity)
+	   (`value 'org-babel-macaulay2-prepare-value)))
+	(process-output
+	 (pcase result-type
+	   (`output 'identity)
+	   (`value 'org-babel-macaulay2-get-value))))
+    (string-trim-left
+     (funcall process-output
+	      (org-babel-eval org-babel-macaulay2-command
+			      (funcall prepare-body body)))
+     "[\n\r]+")))
 
 (defun org-babel-execute:M2 (body params)
   "Execute a block of Macaulay2 code with org-babel.
