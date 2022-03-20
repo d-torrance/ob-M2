@@ -87,17 +87,26 @@ last statement in BODY, as elisp."
 			      (funcall prepare-body body)))
      "[\n\r]+")))
 
+(defun org-babel-variable-assignments:M2 (params)
+  "Return list of Macaulay2 statements assigning the block's variables."
+  (mapcar (lambda (pair)
+	    (format "%s = %s;" (car pair) (cdr pair)))
+	  (org-babel--get-vars params)))
+
 (defun org-babel-execute:M2 (body params)
   "Execute a block of Macaulay2 code with org-babel.
 This function is called by `org-babel-execute-src-block'"
   (let* ((processed-params (org-babel-process-params params))
 	 (session (org-babel-macaulay2-initiate-session
                    (cdr (assq :session processed-params))))
-	 (result-type (cdr (assq :result-type processed-params))))
+	 (result-type (cdr (assq :result-type processed-params)))
+	 (full-body (org-babel-expand-body:generic
+		     body params
+		     (org-babel-variable-assignments:M2 params))))
     (if (string= session "none")
 	(org-babel-macaulay2-evaluate-external-process
-	 body result-type)
+	 full-body result-type)
       (org-babel-macaulay2-evaluate-session
-       session body result-type))))
+       session full-body result-type))))
 
 (provide 'ob-macaulay2)
