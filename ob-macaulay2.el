@@ -22,7 +22,7 @@
   (concat M2-exe " --no-prompts --silent -e 'clearEcho stdio'")
   "Name of the command for executing Macaulay2 code.")
 
-(defun org-babel-macaulay2-initiate-session (&optional session)
+(defun org-babel-macaulay2-initiate-session (session)
   "If there is not a current inferior-process-buffer in SESSION then create.
 Return the initialized session."
   (if (string= session "none") "none"
