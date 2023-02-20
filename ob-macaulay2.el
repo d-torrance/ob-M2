@@ -11,7 +11,6 @@
 (require 'subr-x)
 
 (add-to-list 'org-babel-tangle-lang-exts '("macaulay2" . "m2"))
-(defvar org-babel-default-header-args:macaulay2 '())
 
 (defconst org-babel-macaulay2-eoe-output "org_babel_macaulay2_eoe")
 (defconst org-babel-macaulay2-eoe-indicator
