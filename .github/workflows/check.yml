@@ -13,8 +13,6 @@ jobs:
       - uses: purcell/setup-emacs@master
         with:
           version: 28.2
-      - name: Install M2.el
-        run: sudo apt-get -y install elpa-macaulay2
       - uses: leotaku/elisp-check@master
         with:
           file: ob-macaulay2.el
