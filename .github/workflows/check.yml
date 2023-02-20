@@ -11,6 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: purcell/setup-emacs@master
+        with:
+          version: 28.2
       - uses: leotaku/elisp-check@master
         with:
           file: ob-macaulay2.el
