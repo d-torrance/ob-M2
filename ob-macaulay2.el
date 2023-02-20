@@ -1,3 +1,11 @@
+;;; ob-macaulay2.el --- Babel functions for Macaulay2
+
+;;; Commentary:
+
+;; Org-Babel support for evaluating Macaulay2 source code.
+
+;;; Code:
+
 (require 'ob)
 (require 'M2)
 (require 'subr-x)
@@ -110,3 +118,5 @@ This function is called by `org-babel-execute-src-block'"
        session full-body result-type))))
 
 (provide 'ob-macaulay2)
+
+;;; ob-macaulay2.el ends here
