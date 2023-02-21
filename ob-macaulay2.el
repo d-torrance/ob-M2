@@ -1,5 +1,12 @@
 ;;; ob-macaulay2.el --- Babel functions for Macaulay2
 
+;; Copyright (C) 2021-2023 Doug Torrance
+
+;; Author: Doug Torrance <dtorrance@piedmont.edu>
+;; Version: 0.0.1
+;; URL: https://github.com/d-torrance/ob-macaulay2
+;; Package-Requires: ((emacs "26.1"))
+
 ;;; Commentary:
 
 ;; Org-Babel support for evaluating Macaulay2 source code.
