@@ -21,10 +21,12 @@
 
 (defconst org-babel-macaulay2-eoe-output "org_babel_macaulay2_eoe"
   "String to indicate that Macaulay2 output has completed.")
+
 (defconst org-babel-macaulay2-eoe-indicator
   (concat "print "
 	  (prin1-to-string org-babel-macaulay2-eoe-output))
   "Command to print string to indicate that Macaulay2 output has completed")
+
 (defconst org-babel-macaulay2-command
   (concat M2-exe " --no-prompts --silent -e 'clearEcho stdio'")
   "Name of the command for executing Macaulay2 code.")
