@@ -10,9 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: purcell/setup-emacs@master
-        with:
-          version: 28.2
+      - name: Install dependencies
+        run: sudo apt-get install -y elpa-macaulay2
       - uses: leotaku/elisp-check@master
         with:
           file: ob-macaulay2.el
