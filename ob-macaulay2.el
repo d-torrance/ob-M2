@@ -116,7 +116,7 @@ last statement in BODY, as elisp."
 	  (org-babel--get-vars params)))
 
 (defun org-babel-execute:M2 (body params)
-  "Execute a block of Macaulay2 code with org-babel.
+  "Execute a block of Macaulay2 code in BODY using PARAMS with org-babel.
 This function is called by `org-babel-execute-src-block'"
   (let* ((processed-params (org-babel-process-params params))
 	 (session (ob-macaulay2-initiate-session
