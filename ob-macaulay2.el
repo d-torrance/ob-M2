@@ -41,7 +41,8 @@ Return the initialized session."
 (defconst ob-macaulay2-value-output "org_babel_macaulay2_value")
 
 (defun ob-macaulay2-prepare-value (body)
-  (concat body "\n"
+  (concat "oo = null\n"
+	  body "\n"
 	  "print " (prin1-to-string ob-macaulay2-value-output) "\n"
 	  "print oo"))
 
