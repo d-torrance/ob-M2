@@ -1,0 +1,6 @@
+:PROPERTIES:
+:ID:       19aeeb54-ac72-45d5-b35a-820588267e5f
+:END:
+#+BEGIN_SRC M2
+    "Hello, world!"
+#+END_SRC
