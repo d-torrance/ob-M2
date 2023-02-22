@@ -19,14 +19,6 @@
 
 (add-to-list 'org-babel-tangle-lang-exts '("macaulay2" . "m2"))
 
-(defconst ob-macaulay2-eoe-output "org_babel_macaulay2_eoe"
-  "String to indicate that Macaulay2 output has completed.")
-
-(defconst ob-macaulay2-eoe-indicator
-  (concat "print "
-	  (prin1-to-string ob-macaulay2-eoe-output))
-  "Command to print string to indicate that Macaulay2 output has completed")
-
 (defconst ob-macaulay2-command
   (concat M2-exe " --no-prompts --silent -e 'clearEcho stdio'")
   "Name of the command for executing Macaulay2 code.")
@@ -38,16 +30,24 @@ Return the initialized session."
     (buffer-name
      (save-window-excursion (M2 ob-macaulay2-command session)))))
 
-(defconst ob-macaulay2-value-output "org_babel_macaulay2_value")
+(defconst ob-macaulay2-boe-output "org_babel_macaulay2_boe"
+  "String to indicate that Macaulay2 output is beginning.")
+
+(defconst ob-macaulay2-eoe-output "org_babel_macaulay2_eoe"
+  "String to indicate that Macaulay2 output has completed.")
+
+(defun ob-macaulay2-print-string (string)
+  "Command to print STRING in Macaulay2."
+  (concat "print " (prin1-to-string string) "\n"))
 
 (defun ob-macaulay2-prepare-value (body)
   (concat "oo = null\n"
 	  body "\n"
-	  "print " (prin1-to-string ob-macaulay2-value-output) "\n"
+	  (ob-macaulay2-print-string ob-macaulay2-boe-output)
 	  "print oo"))
 
 (defun ob-macaulay2-get-value (output)
-  (car (last (split-string output ob-macaulay2-value-output))))
+  (car (last (split-string output ob-macaulay2-boe-output))))
 
 (defun ob-macaulay2-evaluate-session (session body result-type)
   "Pass BODY to the Macaulay2 process in SESSION.
@@ -81,7 +81,8 @@ last statement in BODY, as elisp."
 			(session ob-macaulay2-eoe-output)
 		      (insert
 		       (concat (funcall prepare-body body) "\n"
-			       ob-macaulay2-eoe-indicator))
+			       (ob-macaulay2-print-string
+				ob-macaulay2-eoe-output)))
 		      (comint-send-input nil t)))))
 	 "[\n\r]+")
       (with-current-buffer session
