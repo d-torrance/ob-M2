@@ -21,11 +21,10 @@
 
 (defconst ob-macaulay2-command
   (concat M2-exe " --no-prompts --silent -e 'clearEcho stdio'")
-  "Name of the command for executing Macaulay2 code.")
+  "Name of the command for silently executing Macaulay2 code.")
 
 (defun ob-macaulay2-initiate-session (session)
-  "If there is not a current inferior-process-buffer in SESSION then create.
-Return the initialized session."
+  "Create a Macaulay2 inferior process in SESSION, returning buffer name."
   (if (string= session "none") "none"
     (buffer-name
      (save-window-excursion (M2 ob-macaulay2-command session)))))
@@ -41,12 +40,14 @@ Return the initialized session."
   (concat "print " (prin1-to-string string) "\n"))
 
 (defun ob-macaulay2-prepare-value (body)
+  "Prepare code given by BODY to send to Macaulay process."
   (concat "oo = null\n"
 	  body "\n"
 	  (ob-macaulay2-print-string ob-macaulay2-boe-output)
 	  "print oo"))
 
 (defun ob-macaulay2-get-value (output)
+  "Get the value from OUTPUT."
   (car (last (split-string output ob-macaulay2-boe-output))))
 
 (defun ob-macaulay2-evaluate-session (session body result-type)
