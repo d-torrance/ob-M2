@@ -71,7 +71,7 @@ last statement in BODY, as elisp."
     (with-current-buffer session
       (setq-local comint-prompt-regexp "^"))
     (prog1
-	(string-trim-left
+	(string-trim
 	 (funcall process-output
 		  (apply
 		   #'concat
@@ -87,8 +87,7 @@ last statement in BODY, as elisp."
 		       (concat (funcall prepare-body body) "\n"
 			       (ob-macaulay2-print-string
 				ob-macaulay2-eoe-output)))
-		      (comint-send-input nil t)))))
-	 "[\n\r]+")
+		      (comint-send-input nil t))))))
       (with-current-buffer session
 	(setq-local comint-prompt-regexp
 		    comint-prompt-regexp-old)))))
@@ -109,8 +108,7 @@ last statement in BODY, as elisp."
     (string-trim-left
      (funcall process-output
 	      (org-babel-eval ob-macaulay2-command
-			      (funcall prepare-body body)))
-     "[\n\r]+")))
+			      (funcall prepare-body body))))))
 
 (defun org-babel-variable-assignments:M2 (params)
   "Return list of Macaulay2 statements assigning the block's variables."
