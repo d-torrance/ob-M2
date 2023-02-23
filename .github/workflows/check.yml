@@ -15,7 +15,5 @@ jobs:
       - uses: leotaku/elisp-check@master
         with:
           file: ob-macaulay2.el
-      - uses: leotaku/elisp-check@master
-        with:
-          check: ert
-          file: test-ob-macaulay2.el
+      - name: Test
+        run: make check
