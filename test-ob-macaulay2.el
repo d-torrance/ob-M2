@@ -35,10 +35,14 @@
        (unless (or visited-p (not to-be-removed))
 	 (kill-buffer to-be-removed)))))
 
-(ert-deftest ob-macaulay2/hello-world ()
+(defun ob-macaulay2-test-block (n cmp expected)
+  "Run code in block N and compare its output using CMP to EXPECTED."
   (let ((org-confirm-babel-evaluate nil))
     (ob-macaulay2-test-update-id-locations)
     (org-test-at-id "19aeeb54-ac72-45d5-b35a-820588267e5f"
-		    (org-babel-next-src-block 1)
-		    (should (string-equal "Hello, world!\n"
-					  (org-babel-execute-src-block))))))
+		    (org-babel-next-src-block n)
+		    (should (funcall cmp expected
+				     (org-babel-execute-src-block))))))
+
+(ert-deftest ob-macaulay2/hello-world ()
+  (ob-macaulay2-test-block 1 'string-equal "Hello, world!\n"))
