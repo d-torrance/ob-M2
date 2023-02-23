@@ -23,17 +23,17 @@
   (concat M2-exe " --no-prompts --silent -e 'clearEcho stdio'")
   "Name of the command for silently executing Macaulay2 code.")
 
-(defun ob-macaulay2-initiate-session (session)
-  "Create a Macaulay2 inferior process in SESSION, returning buffer name."
-  (if (string= session "none") "none"
-    (buffer-name
-     (save-window-excursion (M2 ob-macaulay2-command session)))))
-
 (defconst ob-macaulay2-boe-output "org_babel_macaulay2_boe"
   "String to indicate that Macaulay2 output is beginning.")
 
 (defconst ob-macaulay2-eoe-output "org_babel_macaulay2_eoe"
   "String to indicate that Macaulay2 output has completed.")
+
+(defun ob-macaulay2-initiate-session (session)
+  "Create a Macaulay2 inferior process in SESSION, returning buffer name."
+  (if (string= session "none") "none"
+    (buffer-name
+     (save-window-excursion (M2 ob-macaulay2-command session)))))
 
 (defun ob-macaulay2-print-string (string)
   "Command to print STRING in Macaulay2."
