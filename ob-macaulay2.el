@@ -29,6 +29,9 @@
 (defconst ob-macaulay2-eoe-output "org_babel_macaulay2_eoe"
   "String to indicate that Macaulay2 output has completed.")
 
+(defvar org-babel-default-header-args:M2 '()
+  "Macaulay2 default header arguments")
+
 (defun ob-macaulay2-initiate-session (session)
   "Create a Macaulay2 inferior process in SESSION, returning buffer name."
   (if (string= session "none") "none"
