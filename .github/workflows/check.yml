@@ -11,7 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install dependencies
-        run: sudo apt-get install -y elpa-macaulay2
+        run: sudo apt-get install -y elpa-macaulay2 macaulay2
       - uses: leotaku/elisp-check@master
         with:
           file: ob-macaulay2.el
+      - uses: leotaku/elisp-check@master
+        with:
+          check: ert
+          file: test-ob-macaulay2.el
