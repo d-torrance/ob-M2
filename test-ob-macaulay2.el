@@ -45,4 +45,4 @@
 				     (org-babel-execute-src-block))))))
 
 (ert-deftest ob-macaulay2/hello-world ()
-  (ob-macaulay2-test-block 1 'string-equal "Hello, world!\n"))
+  (ob-macaulay2-test-block 1 'string-equal "Hello, world!"))
