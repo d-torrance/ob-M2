@@ -48,4 +48,4 @@
   (ob-macaulay2-test-block 1 'string-equal "Hello, world!"))
 
 (ert-deftest ob-macaulay2/var ()
-  (ob-macaulay2-test-block 2 'string-equal "7"))
+  (ob-macaulay2-test-block 2 '= 7))
