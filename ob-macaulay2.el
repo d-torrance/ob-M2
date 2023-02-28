@@ -15,7 +15,6 @@
 
 (require 'ob)
 (require 'M2)
-(require 'subr-x)
 
 (add-to-list 'org-babel-tangle-lang-exts '("macaulay2" . "m2"))
 
@@ -71,7 +70,7 @@ last statement in BODY, as elisp."
     (with-current-buffer session
       (setq-local comint-prompt-regexp "^"))
     (prog1
-	(string-trim
+	(org-trim
 	 (funcall process-output
 		  (apply
 		   #'concat
@@ -105,7 +104,7 @@ last statement in BODY, as elisp."
 	 (pcase result-type
 	   (`output 'identity)
 	   (`value 'ob-macaulay2-get-value))))
-    (string-trim-left
+    (org-trim
      (funcall process-output
 	      (org-babel-eval ob-macaulay2-command
 			      (funcall prepare-body body))))))
