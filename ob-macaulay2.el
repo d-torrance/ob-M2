@@ -70,23 +70,24 @@ last statement in BODY, as elisp."
     (with-current-buffer session
       (setq-local comint-prompt-regexp "^"))
     (prog1
-	(org-trim
-	 (funcall process-output
-		  (apply
-		   #'concat
-		   (seq-remove
-		    (lambda (line)
-		      (or
-		       (string-match-p ob-macaulay2-eoe-output
-				       line)
-		       (string-match-p "^+ M2" line)))
-		    (org-babel-comint-with-output
-			(session ob-macaulay2-eoe-output)
-		      (insert
-		       (concat (funcall prepare-body body) "\n"
-			       (ob-macaulay2-print-string
-				ob-macaulay2-eoe-output)))
-		      (comint-send-input nil t))))))
+	(org-babel-script-escape
+	 (org-trim
+	  (funcall process-output
+		   (apply
+		    #'concat
+		    (seq-remove
+		     (lambda (line)
+		       (or
+			(string-match-p ob-macaulay2-eoe-output
+					line)
+			(string-match-p "^+ M2" line)))
+		     (org-babel-comint-with-output
+			 (session ob-macaulay2-eoe-output)
+		       (insert
+			(concat (funcall prepare-body body) "\n"
+				(ob-macaulay2-print-string
+				 ob-macaulay2-eoe-output)))
+		       (comint-send-input nil t)))))))
       (with-current-buffer session
 	(setq-local comint-prompt-regexp
 		    comint-prompt-regexp-old)))))
@@ -104,10 +105,11 @@ last statement in BODY, as elisp."
 	 (pcase result-type
 	   (`output 'identity)
 	   (`value 'ob-macaulay2-get-value))))
-    (org-trim
-     (funcall process-output
-	      (org-babel-eval ob-macaulay2-command
-			      (funcall prepare-body body))))))
+    (org-babel-script-escape
+     (org-trim
+      (funcall process-output
+	       (org-babel-eval ob-macaulay2-command
+			       (funcall prepare-body body)))))))
 
 (defun org-babel-variable-assignments:M2 (params)
   "Return list of Macaulay2 statements assigning the block's variables."
