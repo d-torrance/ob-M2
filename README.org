@@ -1,6 +1,6 @@
 #+TITLE: Org Babel support for Macaulay2
 
-This package adds support for working with Macaulay2 source code in Org Mode.
+This package adds support for working with [[https://faculty.math.illinois.edu/Macaulay2/][Macaulay2]] source code in [[https://orgmode.org/][Org Mode]].
 
 : #+BEGIN_SRC M2
 :  R = QQ[x, y, z, w]
