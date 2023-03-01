@@ -2,9 +2,9 @@
 :ID:       19aeeb54-ac72-45d5-b35a-820588267e5f
 :END:
 #+BEGIN_SRC M2
-    "Hello, world!"
+  "Hello, world!"
 #+END_SRC
 
 #+BEGIN_SRC M2 :var x=5
-    x + 2
+  x + 2
 #+END_SRC
