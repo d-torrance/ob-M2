@@ -2,9 +2,7 @@
 
 This package adds support for working with Macaulay2 source code in Org Mode.
 
-#+BEGIN_EXAMPLE
-#+BEGIN_SRC M2
-  R = QQ[x, y, z, w]
-  monomialCurveIdeal(R, {1, 2, 3})
-#+END_SRC
-#+END_EXAMPLE
+: #+BEGIN_SRC M2
+:  R = QQ[x, y, z, w]
+:  monomialCurveIdeal(R, {1, 2, 3})
+: #+END_SRC
