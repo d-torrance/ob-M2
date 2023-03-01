@@ -88,7 +88,8 @@ last statement in BODY, as elisp."
 		     (or
 		      (string-match-p ob-macaulay2-eoe-output
 				      line)
-		      (string-match-p "^+ M2" line)))
+		      (string-match-p (concat "^+ " (regexp-quote M2-exe))
+				      line)))
 		   (org-babel-comint-with-output
 		       (session ob-macaulay2-eoe-output)
 		     (insert
