@@ -86,9 +86,9 @@ last statement in BODY, as elisp."
 		  (seq-remove
 		   (lambda (line)
 		     (or
-		      (string-match-p ob-macaulay2-eoe-output
-				      line)
 		      (string-match-p (concat "^+ " (regexp-quote M2-exe))
+				      line)
+		      (string-match-p ob-macaulay2-eoe-output
 				      line)))
 		   (org-babel-comint-with-output
 		       (session ob-macaulay2-eoe-output)
