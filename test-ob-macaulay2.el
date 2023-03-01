@@ -49,3 +49,7 @@
 
 (ert-deftest ob-macaulay2/var ()
   (ob-macaulay2-test-block 2 '= 7))
+
+(ert-deftest ob-macaulay2/twisted-cubic ()
+  (ob-macaulay2-test-block 3 'string-equal "        2                    2
+ideal (z  - y*w, y*z - x*w, y  - x*z)"))

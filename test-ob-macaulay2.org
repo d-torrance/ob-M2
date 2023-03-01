@@ -8,3 +8,8 @@
 #+BEGIN_SRC M2 :var x=5
   x + 2
 #+END_SRC
+
+#+BEGIN_SRC M2
+  R = QQ[x, y, z, w]
+  monomialCurveIdeal(R, {1, 2, 3})
+#+END_SRC
