@@ -22,5 +22,5 @@ This package adds support for working with [[https://faculty.math.illinois.edu/M
   (quelpa '(ob-macaulay2 :repo "d-torrance/ob-macaulay2" :fetcher github))
 #+END_SRC
 
-*** Activating
+** Activating
 Add ~(M2 . t)~ to ~org-babel-load-languages~.
