@@ -70,24 +70,22 @@ last statement in BODY, as elisp."
     (with-current-buffer session
       (setq-local comint-prompt-regexp "^"))
     (prog1
-	(org-babel-script-escape
-	 (org-trim
-	  (funcall process-output
-		   (apply
-		    #'concat
-		    (seq-remove
-		     (lambda (line)
-		       (or
-			(string-match-p ob-macaulay2-eoe-output
-					line)
-			(string-match-p "^+ M2" line)))
-		     (org-babel-comint-with-output
-			 (session ob-macaulay2-eoe-output)
-		       (insert
-			(concat (funcall prepare-body body) "\n"
-				(ob-macaulay2-print-string
-				 ob-macaulay2-eoe-output)))
-		       (comint-send-input nil t)))))))
+	(funcall process-output
+		 (apply
+		  #'concat
+		  (seq-remove
+		   (lambda (line)
+		     (or
+		      (string-match-p ob-macaulay2-eoe-output
+				      line)
+		      (string-match-p "^+ M2" line)))
+		   (org-babel-comint-with-output
+		       (session ob-macaulay2-eoe-output)
+		     (insert
+		      (concat (funcall prepare-body body) "\n"
+			      (ob-macaulay2-print-string
+			       ob-macaulay2-eoe-output)))
+		     (comint-send-input nil t)))))
       (with-current-buffer session
 	(setq-local comint-prompt-regexp
 		    comint-prompt-regexp-old)))))
@@ -105,11 +103,9 @@ last statement in BODY, as elisp."
 	 (pcase result-type
 	   (`output 'identity)
 	   (`value 'ob-macaulay2-get-value))))
-    (org-babel-script-escape
-     (org-trim
-      (funcall process-output
+    (funcall process-output
 	       (org-babel-eval ob-macaulay2-command
-			       (funcall prepare-body body)))))))
+			       (funcall prepare-body body)))))
 
 (defun org-babel-variable-assignments:M2 (params)
   "Return list of Macaulay2 statements assigning the block's variables."
@@ -127,11 +123,14 @@ This function is called by `org-babel-execute-src-block'"
 	 (full-body (org-babel-expand-body:generic
 		     body params
 		     (org-babel-variable-assignments:M2 params))))
-    (if (string= session "none")
-	(ob-macaulay2-evaluate-external-process
-	 full-body result-type)
-      (ob-macaulay2-evaluate-session
-       session full-body result-type))))
+    (org-babel-script-escape
+     (org-trim
+      (if (string= session "none")
+	  (ob-macaulay2-evaluate-external-process
+	   full-body result-type)
+	(ob-macaulay2-evaluate-session
+	 session full-body result-type))
+      t))))
 
 (provide 'ob-macaulay2)
 
