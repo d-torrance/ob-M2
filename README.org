@@ -1,3 +1,2 @@
-#+TITLE: ob-macaulay2
-#+SUBTITLE: Org Babel support for Macaulay2
+#+TITLE: Org Babel support for Macaulay2
 
