@@ -6,7 +6,7 @@ This package adds support for working with [[https://faculty.math.illinois.edu/M
 :  R = QQ[x, y, z, w]
 :  monomialCurveIdeal(R, {1, 2, 3})
 : #+END_SRC
-:
+
 : #+RESULTS:
 : :         2                    2
 : : ideal (z  - y*w, y*z - x*w, y  - x*z)
