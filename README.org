@@ -23,4 +23,7 @@ This package adds support for working with [[https://faculty.math.illinois.edu/M
 #+END_SRC
 
 ** Activating
-Add ~(M2 . t)~ to ~org-babel-load-languages~.
+#+BEGIN_SRC elisp
+  (require 'ob-macaulay2)
+  (add-to-list 'org-babel-load-languages '(M2 . t))
+#+END_SRC
