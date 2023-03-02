@@ -37,12 +37,10 @@
 
 (defun ob-macaulay2-test-block (n cmp expected)
   "Run code in block N and compare its output using CMP to EXPECTED."
-  (let ((org-confirm-babel-evaluate nil))
-    (ob-macaulay2-test-update-id-locations)
-    (org-test-at-id "19aeeb54-ac72-45d5-b35a-820588267e5f"
-		    (org-babel-next-src-block n)
-		    (should (funcall cmp expected
-				     (org-babel-execute-src-block))))))
+  (org-test-at-id "19aeeb54-ac72-45d5-b35a-820588267e5f"
+		  (org-babel-next-src-block n)
+		  (should (funcall cmp expected
+				   (org-babel-execute-src-block)))))
 
 (ert-deftest ob-macaulay2/hello-world ()
   (ob-macaulay2-test-block 1 'string-equal "Hello, world!"))
@@ -53,3 +51,9 @@
 (ert-deftest ob-macaulay2/twisted-cubic ()
   (ob-macaulay2-test-block 3 'string-equal "        2                    2
 ideal (z  - y*w, y*z - x*w, y  - x*z)"))
+
+(defun ob-macaulay2-test-run-all ()
+  "Run all tests and exit."
+  (let ((org-confirm-babel-evaluate nil))
+    (ob-macaulay2-test-update-id-locations)
+    (ert-run-tests-batch-and-exit)))
