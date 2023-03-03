@@ -39,7 +39,7 @@
   "String to indicate that Macaulay2 output has completed.")
 
 (defvar org-babel-default-header-args:M2 '()
-  "Macaulay2 default header arguments")
+  "Macaulay2 default header arguments.")
 
 (defun ob-macaulay2-initiate-session (session)
   "Create a Macaulay2 inferior process in SESSION, returning buffer name."
@@ -118,7 +118,7 @@ last statement in BODY, as elisp."
 			       (funcall prepare-body body)))))
 
 (defun org-babel-variable-assignments:M2 (params)
-  "Return list of Macaulay2 statements assigning the block's variables."
+  "Return list of Macaulay2 statements assigning the variables from PARAMS."
   (append
    (mapcar (lambda (pair)
 	    (format "%s = %s;"
@@ -128,7 +128,7 @@ last statement in BODY, as elisp."
    (list "oo = null")))
 
 (defun ob-macaulay2-var-to-macaulay2 (var)
-  "Convert an elisp value to a Macaulay2 variable."
+  "Convert an elisp value VAR to a Macaulay2 variable."
   (if (listp var)
       (concat "{" (mapconcat #'ob-macaulay2-var-to-macaulay2 var ", ") "}")
     (format "%s" var)))
