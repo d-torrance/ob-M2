@@ -53,8 +53,7 @@
 
 (defun ob-macaulay2-prepare-value (body)
   "Prepare code given by BODY to send to Macaulay process."
-  (concat "oo = null\n"
-	  body "\n"
+  (concat body "\n"
 	  (ob-macaulay2-print-string ob-macaulay2-boe-output)
 	  "print oo"))
 
@@ -120,11 +119,13 @@ last statement in BODY, as elisp."
 
 (defun org-babel-variable-assignments:M2 (params)
   "Return list of Macaulay2 statements assigning the block's variables."
-  (mapcar (lambda (pair)
+  (append
+   (mapcar (lambda (pair)
 	    (format "%s = %s;"
 		    (car pair)
 		    (ob-macaulay2-var-to-macaulay2 (cdr pair))))
-	  (org-babel--get-vars params)))
+	   (org-babel--get-vars params))
+   (list "oo = null")))
 
 (defun ob-macaulay2-var-to-macaulay2 (var)
   "Convert an elisp value to a Macaulay2 variable."
