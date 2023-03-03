@@ -13,3 +13,7 @@
   R = QQ[x, y, z, w]
   monomialCurveIdeal(R, {1, 2, 3})
 #+END_SRC
+
+#+BEGIN_SRC M2 :var X=(list 2 4 6 8 10)
+  for x in X list x - 1
+#+END_SRC

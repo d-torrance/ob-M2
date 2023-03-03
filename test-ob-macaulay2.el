@@ -52,6 +52,9 @@
   (ob-macaulay2-test-block 3 'string-equal "        2                    2
 ideal (z  - y*w, y*z - x*w, y  - x*z)"))
 
+(ert-deftest ob-macaulay2/list ()
+  (ob-macaulay2-test-block 4 'equal (list 1 3 5 7 9)))
+
 (defun ob-macaulay2-test-run-all ()
   "Run all tests and exit."
   (let ((org-confirm-babel-evaluate nil))
