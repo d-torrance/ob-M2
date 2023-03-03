@@ -121,8 +121,16 @@ last statement in BODY, as elisp."
 (defun org-babel-variable-assignments:M2 (params)
   "Return list of Macaulay2 statements assigning the block's variables."
   (mapcar (lambda (pair)
-	    (format "%s = %s;" (car pair) (cdr pair)))
+	    (format "%s = %s;"
+		    (car pair)
+		    (ob-macaulay2-var-to-macaulay2 (cdr pair))))
 	  (org-babel--get-vars params)))
+
+(defun ob-macaulay2-var-to-macaulay2 (var)
+  "Convert an elisp value to a Macaulay2 variable."
+  (if (listp var)
+      (concat "{" (mapconcat #'ob-macaulay2-var-to-macaulay2 var ", ") "}")
+    (format "%s" var)))
 
 (defun org-babel-execute:M2 (body params)
   "Execute a block of Macaulay2 code in BODY using PARAMS with org-babel.
