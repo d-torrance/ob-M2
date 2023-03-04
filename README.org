@@ -1,6 +1,6 @@
 #+TITLE: Org Babel support for Macaulay2
 
-[[https://github.com/d-torrance/ob-macaulay2/actions/workflows/check.yml][file:https://github.com/d-torrance/ob-macaulay2/actions/workflows/check.yml/badge.svg]]
+[[https://github.com/d-torrance/ob-M2/actions/workflows/check.yml][file:https://github.com/d-torrance/ob-M2/actions/workflows/check.yml/badge.svg]]
 
 This package adds support for working with [[https://faculty.math.illinois.edu/Macaulay2/][Macaulay2]] source code in [[https://orgmode.org/][Org Mode]].
 
@@ -19,29 +19,29 @@ This package adds support for working with [[https://faculty.math.illinois.edu/M
 - [[https://github.com/Macaulay2/M2-emacs][M2-emacs]]
 
 ** Installing
-There are several options for installing ob-macaulay2:
+There are several options for installing ob-M2:
 
 *** [[https://github.com/quelpa/quelpa][Quelpa]]
 #+BEGIN_SRC elisp
-  (quelpa '(ob-macaulay2 :repo "d-torrance/ob-macaulay2" :fetcher github))
+  (quelpa '(ob-M2 :repo "d-torrance/ob-M2" :fetcher github))
 #+END_SRC
 
 *** [[https://github.com/radian-software/straight.el][straight.el]]
 #+BEGIN_SRC elisp
-  (straight-use-package '(ob-macaulay2 :type git :host github :repo "d-torrance/ob-macaulay2"))
+  (straight-use-package '(ob-M2 :type git :host github :repo "d-torrance/ob-M2"))
 #+END_SRC
 
 ** Activating
 Add the following to your =init.el=:
 
 #+BEGIN_SRC elisp
-  (require 'ob-macaulay2)
+  (require 'ob-M2)
   (add-to-list 'org-babel-load-languages '(M2 . t))
 #+END_SRC
 
 Or, with [[https://jwiegley.github.io/use-package/][use-package]]:
 
 #+BEGIN_SRC elisp
-  (use-package ob-macaulay2
+  (use-package ob-M2
     :config (add-to-list 'org-babel-load-languages '(M2 . t)))
 #+END_SRC
