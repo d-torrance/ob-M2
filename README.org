@@ -19,9 +19,16 @@ This package adds support for working with [[https://faculty.math.illinois.edu/M
 - [[https://github.com/Macaulay2/M2-emacs][M2-emacs]]
 
 ** Installing
+There are several options for installing ob-macaulay2:
+
 *** [[https://github.com/quelpa/quelpa][Quelpa]]
 #+BEGIN_SRC elisp
   (quelpa '(ob-macaulay2 :repo "d-torrance/ob-macaulay2" :fetcher github))
+#+END_SRC
+
+*** [[https://github.com/radian-software/straight.el][straight.el]]
+#+BEGIN_SRC elisp
+  (straight-use-package '(ob-macaulay2 :type git :host github :repo "d-torrance/ob-macaulay2"))
 #+END_SRC
 
 ** Activating
