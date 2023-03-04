@@ -142,15 +142,21 @@ This function is called by `org-babel-execute-src-block'"
 	 (result-type (cdr (assq :result-type processed-params)))
 	 (full-body (org-babel-expand-body:generic
 		     body params
-		     (org-babel-variable-assignments:M2 params))))
-    (org-babel-script-escape
-     (org-trim
-      (if (string= session "none")
-	  (ob-macaulay2-evaluate-external-process
-	   full-body result-type)
-	(ob-macaulay2-evaluate-session
-	 session full-body result-type))
-      t))))
+		     (org-babel-variable-assignments:M2 params)))
+	 (result (org-babel-script-escape
+		  (org-trim
+		   (if (string= session "none")
+		       (ob-macaulay2-evaluate-external-process
+			full-body result-type)
+		     (ob-macaulay2-evaluate-session
+		      session full-body result-type))
+		   t))))
+    (org-babel-reassemble-table
+     result
+     (org-babel-pick-name (cdr (assq :colname-names params))
+			  (cdr (assq :colnames params)))
+     (org-babel-pick-name (cdr (assq :rowname-names params))
+			  (cdr (assq :rownames params))))))
 
 (provide 'ob-macaulay2)
 
