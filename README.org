@@ -25,7 +25,16 @@ This package adds support for working with [[https://faculty.math.illinois.edu/M
 #+END_SRC
 
 ** Activating
+Add the following to your =init.el=:
+
 #+BEGIN_SRC elisp
   (require 'ob-macaulay2)
   (add-to-list 'org-babel-load-languages '(M2 . t))
+#+END_SRC
+
+Or, with [[https://jwiegley.github.io/use-package/][use-package]]:
+
+#+BEGIN_SRC elisp
+  (use-package ob-macaulay2
+    :config (add-to-list 'org-babel-load-languages '(M2 . t)))
 #+END_SRC
