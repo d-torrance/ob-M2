@@ -32,16 +32,11 @@ There are several options for installing ob-M2:
 #+END_SRC
 
 ** Activating
-Add the following to your =init.el=:
+Add the following to your =.emacs= or =init.el=.  The =...= indicates any other pairs of the form =(lang . t)= specifying languages you wish to load.
 
 #+BEGIN_SRC elisp
-  (require 'ob-M2)
-  (add-to-list 'org-babel-load-languages '(M2 . t))
-#+END_SRC
-
-Or, with [[https://jwiegley.github.io/use-package/][use-package]]:
-
-#+BEGIN_SRC elisp
-  (use-package ob-M2
-    :config (add-to-list 'org-babel-load-languages '(M2 . t)))
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((M2 . t)
+     ...))
 #+END_SRC
