@@ -1,3 +1,2 @@
 check:
-	emacs -q --batch -L . -l ert -l test-ob-macaulay2.el \
-		-f ob-macaulay2-test-run-all
+	emacs -q --batch -L . -l ert -l test-ob-M2.el -f ob-M2-test-run-all
