@@ -53,25 +53,25 @@ This is just `org-test-at-id' from org-test.el."
        (unless (or visited-p (not to-be-removed))
 	 (kill-buffer to-be-removed)))))
 
-(defun ob-M2-test-block (n cmp expected)
+(defun test-ob-M2-test-block (n cmp expected)
   "Run code in block N and compare its output using CMP to EXPECTED."
   (test-ob-M2-test-at-id "19aeeb54-ac72-45d5-b35a-820588267e5f"
 		  (org-babel-next-src-block n)
 		  (should (funcall cmp expected
 				   (org-babel-execute-src-block)))))
 
-(ert-deftest ob-M2/hello-world ()
-  (ob-M2-test-block 1 'string-equal "Hello, world!"))
+(ert-deftest test-ob-M2-hello-world ()
+  (test-ob-M2-test-block 1 'string-equal "Hello, world!"))
 
-(ert-deftest ob-M2/var ()
-  (ob-M2-test-block 2 '= 7))
+(ert-deftest test-ob-M2-var ()
+  (test-ob-M2-test-block 2 '= 7))
 
-(ert-deftest ob-M2/twisted-cubic ()
-  (ob-M2-test-block 3 'string-equal "        2                    2
+(ert-deftest test-ob-M2-twisted-cubic ()
+  (test-ob-M2-test-block 3 'string-equal "        2                    2
 ideal (z  - y*w, y*z - x*w, y  - x*z)"))
 
-(ert-deftest ob-M2/list ()
-  (ob-M2-test-block 4 'equal (list 1 3 5 7 9)))
+(ert-deftest test-ob-M2-list ()
+  (test-ob-M2-test-block 4 'equal (list 1 3 5 7 9)))
 
 (defun test-ob-M2-run-tests ()
   "Run each test and exit."
