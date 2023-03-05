@@ -34,7 +34,7 @@ In a terminal:
 Then add the following to your =.emacs= or =init.el=:
 
 #+BEGIN_SRC elisp
-  (add-to-path 'load-path "~/.emacs.d/ob-M2")
+  (add-to-list 'load-path "~/.emacs.d/ob-M2")
 #+END_SRC
 
 *** [[https://github.com/quelpa/quelpa][Quelpa]]
