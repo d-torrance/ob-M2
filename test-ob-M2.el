@@ -77,6 +77,14 @@ ideal (z  - y*w, y*z - x*w, y  - x*z)"))
 (ert-deftest test-ob-M2-list ()
   (test-ob-M2-test-block 4 'equal (list 1 3 5 7 9)))
 
+(ert-deftest test-ob-M2-table ()
+  (test-ob-M2-test-block 5 'equal (list
+				   (list "" "a" "b" "c")
+				   'hline
+				   (list "d" 2 3 4)
+				   (list "e" 5 6 7)
+				   (list "f" 8 9 10))))
+
 (defun test-ob-M2-run-tests ()
   "Run each test and exit."
   (let ((org-confirm-babel-evaluate nil))
