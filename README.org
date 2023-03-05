@@ -29,6 +29,7 @@ In a terminal:
 #+BEGIN_SRC shell
   cd ~/.emacs.d
   git clone https://github.com/d-torrance/ob-M2
+  make -C ob-M2
 #+END_SRC
 
 Then add the following to your =.emacs= or =init.el=:
