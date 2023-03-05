@@ -125,7 +125,8 @@ last statement in BODY, as elisp."
 		    (car pair)
 		    (ob-M2-var-to-macaulay2 (cdr pair))))
 	   (org-babel--get-vars params))
-   (list "oo = null")))
+   (when (eq (cdr (assq :result-type params)) 'value)
+     (list "oo = null"))))
 
 (defun ob-M2-var-to-macaulay2 (var)
   "Convert an elisp value VAR to a Macaulay2 variable."
