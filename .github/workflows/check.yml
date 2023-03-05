@@ -15,7 +15,5 @@ jobs:
         run: sudo apt-get install -y elpa-macaulay2 macaulay2 elpa-org
       - name: Run MELPA checks
         uses: leotaku/elisp-check@master
-        with:
-          file: ob-M2.el
       - name: Run tests
         run: make check
