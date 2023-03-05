@@ -1,21 +1,38 @@
+;;; test-ob-M2.el --- test for ob-M2
+
+;; Copyright (C) 2021-2023 Doug Torrance
+
+;; This program is free software: you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;;; Commentary:
+
+;; Tests for Org Babel support for evaluating Macaulay2 source code.
+
+;;; Code:
+
+(require 'ert)
 (require 'ob-M2)
 (require 'org-id)
 
-(defconst ob-M2-test-dir
-  (expand-file-name (file-name-directory (or load-file-name buffer-file-name))))
-
-(defconst org-id-locations-file
-  (expand-file-name ".test-org-id-locations" ob-M2-test-dir))
-
-(defun ob-M2-test-update-id-locations ()
+(defun test-ob-M2-update-id-locations ()
+  "Scan files in current directory for IDs."
   (org-id-update-id-locations
    (directory-files
-    ob-M2-test-dir 'full
+    default-directory
+    'full
     "^\\([^.]\\|\\.\\([^.]\\|\\..\\)\\).*\\.org$")))
 
-;; from org-test.el
-(defmacro org-test-at-id (id &rest body)
-  "Run body after placing the point in the headline identified by ID."
+(defmacro test-ob-M2-test-at-id (id &rest body)
+  "Run BODY after placing the point in the headline identified by ID.
+This is just `org-test-at-id' from org-test.el."
   (declare (indent 1) (debug t))
   `(let* ((id-location (org-id-find ,id))
 	  (id-file (car id-location))
@@ -37,7 +54,7 @@
 
 (defun ob-M2-test-block (n cmp expected)
   "Run code in block N and compare its output using CMP to EXPECTED."
-  (org-test-at-id "19aeeb54-ac72-45d5-b35a-820588267e5f"
+  (test-ob-M2-test-at-id "19aeeb54-ac72-45d5-b35a-820588267e5f"
 		  (org-babel-next-src-block n)
 		  (should (funcall cmp expected
 				   (org-babel-execute-src-block)))))
@@ -55,8 +72,12 @@ ideal (z  - y*w, y*z - x*w, y  - x*z)"))
 (ert-deftest ob-M2/list ()
   (ob-M2-test-block 4 'equal (list 1 3 5 7 9)))
 
-(defun ob-M2-test-run-all ()
-  "Run all tests and exit."
+(defun test-ob-M2-run-tests ()
+  "Run each test and exit."
   (let ((org-confirm-babel-evaluate nil))
-    (ob-M2-test-update-id-locations)
-    (ert-run-tests-batch-and-exit)))
+    (test-ob-M2-update-id-locations)
+    (ert t)))
+
+(provide 'test-ob-M2)
+
+;;; test-ob-M2.el ends here
