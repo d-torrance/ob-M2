@@ -23,6 +23,20 @@ This package adds support for working with [[https://faculty.math.illinois.edu/M
 ** Installing
 There are several options for installing ob-M2:
 
+*** git
+In a terminal:
+
+#+BEGIN_SRC shell
+  cd ~/.emacs.d
+  git clone https://github.com/d-torrance/ob-M2
+#+END_SRC
+
+Then add the following to your =.emacs= or =init.el=:
+
+#+BEGIN_SRC elisp
+  (add-to-path 'load-path "~/.emacs.d/ob-M2")
+#+END_SRC
+
 *** [[https://github.com/quelpa/quelpa][Quelpa]]
 #+BEGIN_SRC elisp
   (quelpa '(ob-M2 :repo "d-torrance/ob-M2" :fetcher github))
