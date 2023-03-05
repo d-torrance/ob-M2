@@ -81,7 +81,7 @@ ideal (z  - y*w, y*z - x*w, y  - x*z)"))
   "Run each test and exit."
   (let ((org-confirm-babel-evaluate nil))
     (test-ob-M2-update-id-locations)
-    (ert t)))
+    (ert-run-tests-batch-and-exit)))
 
 (provide 'test-ob-M2)
 
