@@ -132,7 +132,7 @@ last statement in BODY, as elisp."
   "Convert an elisp value VAR to a Macaulay2 variable."
   (if (listp var)
       (concat "{" (mapconcat #'ob-M2-var-to-macaulay2 var ", ") "}")
-    (format "%s" var)))
+    (prin1-to-string var)))
 
 (defun org-babel-execute:M2 (body params)
   "Execute a block of Macaulay2 code in BODY using PARAMS with org-babel.
