@@ -26,7 +26,7 @@
 (require 'ob)
 (require 'M2)
 
-(add-to-list 'org-babel-tangle-lang-exts '("macaulay2" . "m2"))
+(add-to-list 'org-babel-tangle-lang-exts '("M2" . "m2"))
 
 (defconst ob-M2-command
   (concat M2-exe " --no-prompts --silent -e 'clearEcho stdio'")
