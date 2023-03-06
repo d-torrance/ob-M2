@@ -85,6 +85,17 @@ ideal (z  - y*w, y*z - x*w, y  - x*z)"))
 				   (list "e" 5 6 7)
 				   (list "f" 8 9 10))))
 
+(ert-deftest test-ob-M2-tangle ()
+  (test-ob-M2-test-at-id "19aeeb54-ac72-45d5-b35a-820588267e5f"
+			 (org-babel-tangle)
+			 (prog1
+			     (should (string-equal
+				      (with-temp-buffer
+					(insert-file-contents "test-ob-M2.m2")
+					(buffer-string))
+				      "x = 5;\nx + 2\n"))
+			   (delete-file "test-ob-M2.m2"))))
+
 (defun test-ob-M2-run-tests ()
   "Run each test and exit."
   (let ((org-confirm-babel-evaluate nil))

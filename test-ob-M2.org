@@ -28,3 +28,7 @@
 #+BEGIN_SRC M2 :var tab=tab :rownames yes :colnames yes
   for row in tab list for x in row list x + 1
 #+END_SRC
+
+#+BEGIN_SRC M2 :results output :var x=5 :tangle yes
+  x + 2
+#+END_SRC
