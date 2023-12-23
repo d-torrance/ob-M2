@@ -2,7 +2,7 @@
 
 [[https://github.com/d-torrance/ob-M2/actions/workflows/check.yml][file:https://github.com/d-torrance/ob-M2/actions/workflows/check.yml/badge.svg]]
 
-This package adds support for working with [[https://faculty.math.illinois.edu/Macaulay2/][Macaulay2]] source code in [[https://orgmode.org/][Org Mode]].
+This package adds support for working with [[https://macaulay2.com/][Macaulay2]] source code in [[https://orgmode.org/][Org Mode]].
 
 #+BEGIN_SRC org
   ,#+BEGIN_SRC M2
@@ -17,7 +17,7 @@ This package adds support for working with [[https://faculty.math.illinois.edu/M
 
 * Installation
 ** Requirements
-- [[https://faculty.math.illinois.edu/Macaulay2/][Macaulay2]]
+- [[https://macaulay2.com][Macaulay2]]
 - [[https://github.com/Macaulay2/M2-emacs][M2-emacs]]
 
 ** Installing
