@@ -44,7 +44,7 @@ In a terminal:
 #+END_SRC
 
 ** Activating
-Add the following to your =.emacs= or =init.el=.  The =...= indicates any other pairs of the form =(lang . t)= specifying languages you wish to load.
+Add the following to your =.emacs= or =init.el=.  The =...= indicates any other pairs of the form =(<lang> . t)= specifying languages you wish to load.
 
 #+BEGIN_SRC elisp
   (org-babel-do-load-languages
