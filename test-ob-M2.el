@@ -26,6 +26,7 @@
 (require 'ert)
 (require 'ob-M2)
 (require 'org-id)
+(require 'org-element)
 
 (defun test-ob-M2-update-id-locations ()
   "Scan files in current directory for IDs."
