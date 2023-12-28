@@ -134,7 +134,9 @@ last statement in BODY, as elisp."
       (concat "{" (mapconcat #'ob-M2-var-to-macaulay2 var ", ") "}")
     (prin1-to-string var)))
 
-(defun org-babel-expand-body:M2 (body params)
+;; probably should be org-babel-expand-body:M2, but that doesn't pass
+;; package-lint
+(defun ob-M2-expand-body (body params)
   "Expand BODY with PARAMS for Macaulay2 code.
 Graphics generation will only work if ImageMagick is installed."
   (let ((graphics-file (and (member "graphics" (assq :result-params params))
@@ -154,7 +156,7 @@ This function is called by `org-babel-execute-src-block'"
 	 (session (ob-M2-initiate-session
                    (cdr (assq :session processed-params))))
 	 (result-type (cdr (assq :result-type processed-params)))
-	 (full-body (org-babel-expand-body:M2 body params))
+	 (full-body (ob-M2-expand-body body params))
 	 (result (org-babel-script-escape
 		  (org-trim
 		   (if (string= session "none")
