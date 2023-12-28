@@ -52,3 +52,13 @@ Add the following to your =.emacs= or =init.el=.  The =...= indicates any other 
    '((M2 . t)
      ...))
 #+END_SRC
+
+** Using
+
+*** Quick start
+Open a file with the =.org= file extension in Emacs and type =C-c C-, s M2= to
+begin a new Macaulay2 source code block.  Then start coding!  Type =C-c C-c=
+to evaluate.
+
+For complete documentation, see the [[https://orgmode.org/manual/Working-with-Source-Code.html][Working with Source Code]] section of the
+Org Mode manual.
