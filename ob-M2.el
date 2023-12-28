@@ -3,7 +3,7 @@
 ;; Copyright (C) 2021-2023 Doug Torrance
 
 ;; Author: Doug Torrance <dtorrance@piedmont.edu>
-;; Version: 0.1.2
+;; Version: 0.2.0
 ;; URL: https://github.com/d-torrance/ob-M2
 ;; Package-Requires: ((emacs "26.1"))
 
@@ -20,6 +20,20 @@
 ;;; Commentary:
 
 ;; Org-Babel support for evaluating Macaulay2 source code.
+
+;;; Change Log:
+
+;; [0.2.0] - 2023-12-28
+;; - Add support for generating graphics
+
+;; [0.1.2] - 2023-12-23
+;; - Use package-install when installing with make
+
+;; [0.1.1] - 2023-03-06
+;; - Fix file extension when tangling
+
+;; [0.1.0] - 2023-03-05
+;; - Initial release
 
 ;;; Code:
 
