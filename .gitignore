@@ -1,4 +1,6 @@
-*~
 *.elc
 *.html
 *.m2
+*.pdf
+*.tex
+*~
