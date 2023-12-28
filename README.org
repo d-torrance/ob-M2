@@ -67,10 +67,8 @@ Org Mode manual.
 To generate graphics, specify the =file= type and =graphics= format along
 with a =:file= header argument.  Then in your Macaulay2 code, call [[https://macaulay2.com/doc/Macaulay2/share/doc/Macaulay2/Macaulay2Doc/html/_show.html][show]] (or
 a function that calls it like [[https://macaulay2.com/doc/Macaulay2/share/doc/Macaulay2/Graphs/html/_display__Graph.html][displayGraph]]).  The resulting image will be
-generated with the desired filename.  (Note that the =convert= utility from
-[[https://imagemagick.org/][ImageMagick]] must be present for this to work.)  Initially, a link to the image
-file will appear, but it may be displayed in the buffer by calling
-=M-x org-toggle-inline-images=.
+generated with the desired filename.  Note that the =convert= utility from
+[[https://imagemagick.org/][ImageMagick]] must be present for this to work.
 
 #+BEGIN_SRC org
   ,#+BEGIN_SRC M2 :results file graphics :file barbell.png
@@ -81,3 +79,8 @@ file will appear, but it may be displayed in the buffer by calling
   ,#+RESULTS
   [[file:barbell.png]]
 #+END_SRC
+
+Initially, a link to the image file will appear, but it may be
+displayed in the buffer by calling =M-x org-toggle-inline-images=.
+
+[[barbell.png]]
