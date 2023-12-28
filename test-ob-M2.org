@@ -32,3 +32,8 @@
 #+BEGIN_SRC M2 :results output :var x=5 :tangle yes
   x + 2
 #+END_SRC
+
+#+BEGIN_SRC M2 :results file graphics :file "triangle.png"
+  needsPackage "Graphs"
+  displayGraph completeGraph 3
+#+END_SRC

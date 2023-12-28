@@ -97,6 +97,13 @@ ideal (z  - y*w, y*z - x*w, y  - x*z)"))
 				      "x = 5;\nx + 2\n"))
 			   (delete-file "test-ob-M2.m2"))))
 
+(ert-deftest test-ob-M2-graphics ()
+  (test-ob-M2-test-at-id "19aeeb54-ac72-45d5-b35a-820588267e5f"
+			 (org-babel-next-src-block 7)
+			 (org-babel-execute-src-block)
+			 (should (file-exists-p "triangle.png"))
+			 (delete-file "triangle.png")))
+
 (defun test-ob-M2-run-tests ()
   "Run each test and exit."
   (let ((org-confirm-babel-evaluate nil))
