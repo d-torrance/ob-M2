@@ -17,6 +17,7 @@ This package adds support for working with [[https://macaulay2.com/][Macaulay2]]
 
 * Installation
 ** Requirements
+- [[https://orgmode.org/][Org Mode]]
 - [[https://macaulay2.com][Macaulay2]]
 - [[https://github.com/Macaulay2/M2-emacs][M2-emacs]]
 
