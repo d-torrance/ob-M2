@@ -3,7 +3,7 @@
 ;; Copyright (C) 2021-2023 Doug Torrance
 
 ;; Author: Doug Torrance <dtorrance@piedmont.edu>
-;; Version: 0.2.0
+;; Version: 0.2.1
 ;; URL: https://github.com/d-torrance/ob-M2
 ;; Package-Requires: ((emacs "26.1"))
 
@@ -22,6 +22,10 @@
 ;; Org-Babel support for evaluating Macaulay2 source code.
 
 ;;; Change Log:
+
+;; [0.2.1] - 2024-03-05
+;; - Remove ChangeLog.org; changelog now in here comments.
+;; - Remove unnecessary quotes around filename in graphics test.
 
 ;; [0.2.0] - 2023-12-28
 ;; - Add support for generating graphics
