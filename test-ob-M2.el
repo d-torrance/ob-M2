@@ -1,8 +1,8 @@
 ;;; test-ob-M2.el --- Tests for ob-M2
 
-;; Copyright (C) 2021-2023 Doug Torrance
+;; Copyright (C) 2021-2026 Doug Torrance
 
-;; Author: Doug Torrance <dtorrance@piedmont.edu>
+;; Author: Doug Torrance <dtorrance9@gatech.edu>
 ;; Version: 0.2.1
 ;; URL: https://github.com/d-torrance/ob-M2
 ;; Package-Requires: ((emacs "27.1"))
