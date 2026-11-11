@@ -5,7 +5,7 @@
 ;; Author: Doug Torrance <dtorrance@piedmont.edu>
 ;; Version: 0.2.1
 ;; URL: https://github.com/d-torrance/ob-M2
-;; Package-Requires: ((emacs "26.1"))
+;; Package-Requires: ((emacs "26.1") (M2 "1.21"))
 
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
