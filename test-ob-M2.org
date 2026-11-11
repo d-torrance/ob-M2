@@ -37,3 +37,23 @@
   needsPackage "Graphs"
   displayGraph completeGraph 3
 #+END_SRC
+
+#+BEGIN_SRC M2 :results output
+  printerr "foo"
+#+END_SRC
+
+#+BEGIN_SRC M2 :results output
+  print "a"
+  1/0
+  print "b"
+#+END_SRC
+
+#+BEGIN_SRC M2 :results output :session *ob-M2-test*
+  printerr "foo"
+#+END_SRC
+
+#+BEGIN_SRC M2 :results output :session *ob-M2-test*
+  print "a"
+  1/0
+  print "b"
+#+END_SRC

@@ -104,6 +104,25 @@ ideal (z  - y*w, y*z - x*w, y  - x*z)"))
 			 (should (file-exists-p "triangle.png"))
 			 (delete-file "triangle.png")))
 
+(defconst test-ob-M2-stderr-expected " -- foo"
+  "Expected output of the printerr blocks.")
+
+(defconst test-ob-M2-error-regexp
+  "\\`a\n.*error: division by zero\nb\\'"
+  "Regexp matching the expected output of the division by zero blocks.")
+
+(ert-deftest test-ob-M2-stderr ()
+  (test-ob-M2-test-block 8 'string-equal test-ob-M2-stderr-expected))
+
+(ert-deftest test-ob-M2-error ()
+  (test-ob-M2-test-block 9 'string-match-p test-ob-M2-error-regexp))
+
+(ert-deftest test-ob-M2-session-stderr ()
+  (test-ob-M2-test-block 10 'string-equal test-ob-M2-stderr-expected))
+
+(ert-deftest test-ob-M2-session-error ()
+  (test-ob-M2-test-block 11 'string-match-p test-ob-M2-error-regexp))
+
 (defun test-ob-M2-run-tests ()
   "Run each test and exit."
   (let ((org-confirm-babel-evaluate nil))

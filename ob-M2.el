@@ -120,9 +120,9 @@ last statement in BODY, as elisp."
 
 (defun ob-M2-evaluate-external-process (body result-type)
   "Evaluate BODY in external Macaulay2 process.
-If RESULT-TYPE equals `output' then return standard output as a
-string.  If RESULT-TYPE equals `value' then return the value of the
-last statement in BODY, as elisp."
+If RESULT-TYPE equals `output' then return standard output and
+standard error as a string.  If RESULT-TYPE equals `value' then
+return the value of the last statement in BODY, as elisp."
   (let ((prepare-body
 	 (pcase result-type
 	   (`output 'identity)
@@ -132,8 +132,8 @@ last statement in BODY, as elisp."
 	   (`output 'identity)
 	   (`value 'ob-M2-get-value))))
     (funcall process-output
-	       (org-babel-eval ob-M2-command
-			       (funcall prepare-body body)))))
+	     (org-babel-eval (concat ob-M2-command " 2>&1")
+			     (funcall prepare-body body)))))
 
 (defun org-babel-variable-assignments:M2 (params)
   "Return list of Macaulay2 statements assigning the variables from PARAMS."
