@@ -3,7 +3,7 @@
 ;; Copyright (C) 2021-2026 Doug Torrance
 
 ;; Author: Doug Torrance <dtorrance9@gatech.edu>
-;; Version: 0.2.1
+;; Version: 0.3.0
 ;; URL: https://github.com/d-torrance/ob-M2
 ;; Package-Requires: ((emacs "26.1") (M2 "1.21"))
 
@@ -22,6 +22,13 @@
 ;; Org-Babel support for evaluating Macaulay2 source code.
 
 ;;; Change Log:
+
+;; [0.3.0] - 2026-11-10
+;; - Include stderr in results when not using a session.
+;; - Add M2 to Package-Requires.
+;; - Add "make dist" target for building a package archive tarball.
+;; - Remove "make install" target.
+;; - Document installation from the Macaulay2 Emacs package archive.
 
 ;; [0.2.1] - 2024-03-05
 ;; - Remove ChangeLog.org; changelog now in here comments.

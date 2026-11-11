@@ -3,7 +3,7 @@
 ;; Copyright (C) 2021-2026 Doug Torrance
 
 ;; Author: Doug Torrance <dtorrance9@gatech.edu>
-;; Version: 0.2.1
+;; Version: 0.3.0
 ;; URL: https://github.com/d-torrance/ob-M2
 ;; Package-Requires: ((emacs "27.1"))
 
