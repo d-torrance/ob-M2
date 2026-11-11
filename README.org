@@ -24,13 +24,27 @@ This package adds support for working with [[https://macaulay2.com/][Macaulay2]]
 ** Installing
 There are several options for installing ob-M2:
 
-*** git
-In a terminal:
+*** Macaulay2 package archive
+ob-M2 is available from the [[https://macaulay2.com/Repositories/Emacs/][Macaulay2 Emacs package archive]], which also
+provides M2-emacs.  Add the following to your =.emacs= or =init.el=:
 
-#+BEGIN_SRC shell
-  git clone https://github.com/d-torrance/ob-M2
-  cd ob-M2
-  make install
+#+BEGIN_SRC elisp
+  (require 'package)
+  (add-to-list 'package-archives
+               '("M2" . "https://macaulay2.com/Repositories/Emacs/") t)
+  (package-initialize)
+#+END_SRC
+
+Then run =M-x package-refresh-contents= followed by
+=M-x package-install RET ob-M2 RET=.  M2-emacs will be installed
+automatically as a dependency.
+
+*** git
+In Emacs 29 or later, with the Macaulay2 package archive configured as
+above so that M2-emacs can be installed as a dependency:
+
+#+BEGIN_SRC elisp
+  (package-vc-install "https://github.com/d-torrance/ob-M2")
 #+END_SRC
 
 *** [[https://github.com/quelpa/quelpa][Quelpa]]
